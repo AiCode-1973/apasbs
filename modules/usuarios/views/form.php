@@ -12,11 +12,12 @@ function isInvalid(array $erros, string $campo): string {
 }
 ?>
 
-<div class="mb-4">
-    <h4 class="mb-0"><?= $titulo ?></h4>
+<div class="page-header">
+    <h4><?= $titulo ?></h4>
+    <p><?= $editando ? 'Atualize os dados do profissional' : 'Preencha os dados do novo profissional' ?></p>
 </div>
 
-<div class="card shadow-sm" style="max-width:600px">
+<div class="card" style="max-width:560px">
     <div class="card-body p-4">
         <form method="POST" action="<?= $actionUrl ?>" novalidate>
             <?php if ($editando): ?>

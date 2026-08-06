@@ -2,12 +2,13 @@
     <div class="alert alert-success py-2 small">Permissões salvas com sucesso.</div>
 <?php endif; ?>
 
-<div class="mb-4">
-    <h4 class="mb-0">Permissões de Módulos</h4>
+<div class="page-header">
+    <h4>Permissões de Módulos</h4>
+    <p>Defina o que cada profissional pode acessar no sistema</p>
 </div>
 
 <!-- Seletor de usuário -->
-<div class="card shadow-sm mb-4" style="max-width:480px">
+<div class="card mb-4" style="max-width:480px">
     <div class="card-body">
         <label class="form-label fw-semibold">Selecionar Usuário</label>
         <form method="GET" class="d-flex gap-2">
@@ -31,10 +32,10 @@
 <form method="POST" action="<?= BASE_URL ?>/?mod=permissoes&action=salvar">
     <input type="hidden" name="usuario_id" value="<?= $usuarioId ?>">
 
-    <div class="card shadow-sm">
+    <div class="table-card" style="max-width:680px">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
+                <thead>
                     <tr>
                         <th>Módulo</th>
                         <th class="text-center">Visualizar</th>
@@ -47,27 +48,29 @@
                 <?php foreach ($modulos as $m): ?>
                     <?php $p = $permissoes[$m['id']] ?? []; ?>
                     <tr>
-                        <td class="fw-semibold">
-                            <i class="bi <?= htmlspecialchars($m['icone']) ?> me-1"></i>
-                            <?= htmlspecialchars($m['nome']) ?>
+                        <td>
+                            <span class="d-flex align-items-center gap-2">
+                                <i class="bi <?= htmlspecialchars($m['icone']) ?>" style="color:var(--m-500)"></i>
+                                <span style="font-weight:600;font-size:.875rem"><?= htmlspecialchars($m['nome']) ?></span>
+                            </span>
                         </td>
                         <td class="text-center">
-                            <input class="form-check-input" type="checkbox"
+                            <input class="perm-check" type="checkbox"
                                    name="permissoes[<?= $m['id'] ?>][pode_ver]"
                                    <?= !empty($p['pode_ver']) ? 'checked' : '' ?>>
                         </td>
                         <td class="text-center">
-                            <input class="form-check-input" type="checkbox"
+                            <input class="perm-check" type="checkbox"
                                    name="permissoes[<?= $m['id'] ?>][pode_criar]"
                                    <?= !empty($p['pode_criar']) ? 'checked' : '' ?>>
                         </td>
                         <td class="text-center">
-                            <input class="form-check-input" type="checkbox"
+                            <input class="perm-check" type="checkbox"
                                    name="permissoes[<?= $m['id'] ?>][pode_editar]"
                                    <?= !empty($p['pode_editar']) ? 'checked' : '' ?>>
                         </td>
                         <td class="text-center">
-                            <input class="form-check-input" type="checkbox"
+                            <input class="perm-check" type="checkbox"
                                    name="permissoes[<?= $m['id'] ?>][pode_excluir]"
                                    <?= !empty($p['pode_excluir']) ? 'checked' : '' ?>>
                         </td>
@@ -76,8 +79,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="card-footer">
-            <button type="submit" class="btn btn-primary btn-sm">
+        <div style="padding:.875rem 1rem;border-top:1px solid #e4e8f0;background:#fff;border-radius:0 0 12px 12px">
+            <button type="submit" class="btn btn-primary btn-sm px-4">
                 <i class="bi bi-floppy me-1"></i> Salvar Permissões
             </button>
         </div>

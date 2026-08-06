@@ -9,9 +9,12 @@ $msg = $msgs[$_GET['msg'] ?? ''] ?? null;
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="mb-0">Usuários</h4>
-    <a href="<?= BASE_URL ?>/?mod=usuarios&action=novo" class="btn btn-primary btn-sm">
-        <i class="bi bi-plus-lg"></i> Novo Usuário
+    <div class="page-header mb-0">
+        <h4>Usuários</h4>
+        <p>Gerencie os profissionais com acesso ao sistema</p>
+    </div>
+    <a href="<?= BASE_URL ?>/?mod=usuarios&action=novo" class="btn btn-primary btn-sm px-3">
+        <i class="bi bi-plus-lg me-1"></i> Novo Usuário
     </a>
 </div>
 
@@ -19,7 +22,7 @@ $msg = $msgs[$_GET['msg'] ?? ''] ?? null;
     <div class="alert alert-<?= $msg[0] ?> py-2 small"><?= $msg[1] ?></div>
 <?php endif; ?>
 
-<div class="card shadow-sm">
+<div class="table-card">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
             <thead class="table-light">
@@ -40,7 +43,7 @@ $msg = $msgs[$_GET['msg'] ?? ''] ?? null;
                     </td>
                     <td><?= htmlspecialchars($u['setor_nome']) ?></td>
                     <td>
-                        <span class="badge <?= $u['ativo'] ? 'bg-success' : 'bg-secondary' ?>">
+                        <span class="status-badge <?= $u['ativo'] ? 'status-ativo' : 'status-inativo' ?>">
                             <?= $u['ativo'] ? 'Ativo' : 'Inativo' ?>
                         </span>
                     </td>
@@ -63,7 +66,10 @@ $msg = $msgs[$_GET['msg'] ?? ''] ?? null;
             <?php endforeach; ?>
             <?php if (empty($usuarios)): ?>
                 <tr>
-                    <td colspan="5" class="text-center text-muted py-4">Nenhum usuário cadastrado.</td>
+                    <td colspan="5" class="text-center py-5">
+                        <i class="bi bi-people" style="font-size:2rem;color:#c8cfe0"></i>
+                        <p class="mt-2 mb-0 text-muted small">Nenhum usuário cadastrado.</p>
+                    </td>
                 </tr>
             <?php endif; ?>
             </tbody>
