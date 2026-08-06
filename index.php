@@ -14,6 +14,9 @@ define('BASE_URL', rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])
 require_once BASE_PATH . '/config/database.php';
 require_once BASE_PATH . '/core/Auth.php';
 require_once BASE_PATH . '/core/View.php';
+require_once BASE_PATH . '/core/Modules.php';
+
+Modules::sync();
 
 // Módulos disponíveis (whitelist de segurança)
 const MODULOS_VALIDOS = ['usuarios', 'permissoes', 'setores', 'tuss'];
