@@ -14,7 +14,7 @@ class PermissoesController
 
     public function gerenciar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('permissoes', 'pode_ver');
 
         $usuarioId  = (int) ($_GET['usuario_id'] ?? 0);
         $permissoes = $usuarioId ? $this->model->buscarPermissoesUsuario($usuarioId) : [];
@@ -29,7 +29,7 @@ class PermissoesController
 
     public function salvar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('permissoes', 'pode_editar');
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: ' . BASE_URL . '/?mod=permissoes&action=gerenciar');

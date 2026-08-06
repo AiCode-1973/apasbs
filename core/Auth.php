@@ -5,8 +5,9 @@ class Auth
 {
     public static function login(array $usuario): void
     {
-        $_SESSION['usuario_id']   = $usuario['id'];
-        $_SESSION['usuario_nome'] = $usuario['nome'];
+        $_SESSION['usuario_id']    = $usuario['id'];
+        $_SESSION['usuario_nome']  = $usuario['nome'];
+        $_SESSION['usuario_admin'] = !empty($usuario['is_admin']);
         session_regenerate_id(true);
     }
 
@@ -29,6 +30,16 @@ class Auth
         }
     }
 
+    public static function requirePermissao(string $modulo, string $tipo = 'pode_ver'): void
+    {
+        self::requireLogin();
+        if (!self::temPermissao($modulo, $tipo)) {
+            $_SESSION['flash_error'] = 'Você não tem permissão para acessar este recurso.';
+            header('Location: ' . BASE_URL . '/');
+            exit;
+        }
+    }
+
     public static function id(): ?int
     {
         return $_SESSION['usuario_id'] ?? null;
@@ -39,13 +50,22 @@ class Auth
         return $_SESSION['usuario_nome'] ?? null;
     }
 
+    public static function isAdmin(): bool
+    {
+        return !empty($_SESSION['usuario_admin']);
+    }
+
     public static function temPermissao(string $modulo, string $tipo = 'pode_ver'): bool
     {
         if (!self::check()) {
             return false;
         }
 
-        // Whitelist para evitar injeção na coluna
+        // Admin tem acesso irrestrito
+        if (self::isAdmin()) {
+            return true;
+        }
+
         $tiposValidos = ['pode_ver', 'pode_criar', 'pode_editar', 'pode_excluir'];
         if (!in_array($tipo, $tiposValidos, true)) {
             return false;

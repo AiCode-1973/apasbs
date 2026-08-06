@@ -222,6 +222,12 @@ $pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módul
 $currentMod = $_GET['mod'] ?? 'usuarios';
 $pageTitle  = $pageTitles[$currentMod] ?? 'Sistema';
 $hoje = date('d/m/Y');
+
+$flashError = null;
+if (isset($_SESSION['flash_error'])) {
+    $flashError = $_SESSION['flash_error'];
+    unset($_SESSION['flash_error']);
+}
 ?>
 
 <nav class="sidebar">
@@ -235,23 +241,29 @@ $hoje = date('d/m/Y');
 
     <div class="sb-body">
         <div class="sb-section">Cadastros</div>
+        <?php if (Auth::temPermissao('usuarios')): ?>
         <a class="sb-link <?= $currentMod === 'usuarios' ? 'active' : '' ?>"
            href="<?= BASE_URL ?>/?mod=usuarios&action=lista">
             <i class="bi bi-people"></i>
             <span class="sb-link-label"> Usuários</span>
         </a>
+        <?php endif; ?>
+        <?php if (Auth::temPermissao('setores')): ?>
         <a class="sb-link <?= $currentMod === 'setores' ? 'active' : '' ?>"
            href="<?= BASE_URL ?>/?mod=setores&action=lista">
             <i class="bi bi-building"></i>
             <span class="sb-link-label"> Setores</span>
         </a>
+        <?php endif; ?>
 
         <div class="sb-section mt-1">Configurações</div>
+        <?php if (Auth::temPermissao('permissoes')): ?>
         <a class="sb-link <?= $currentMod === 'permissoes' ? 'active' : '' ?>"
            href="<?= BASE_URL ?>/?mod=permissoes&action=gerenciar">
             <i class="bi bi-shield-lock"></i>
             <span class="sb-link-label"> Permissões</span>
         </a>
+        <?php endif; ?>
     </div>
 
     <div class="sb-footer">
@@ -280,6 +292,12 @@ $hoje = date('d/m/Y');
     </header>
 
     <main class="page-body">
+        <?php if ($flashError): ?>
+            <div class="alert alert-danger d-flex align-items-center gap-2 mb-4" style="max-width:520px">
+                <i class="bi bi-shield-exclamation"></i>
+                <?= htmlspecialchars($flashError) ?>
+            </div>
+        <?php endif; ?>
         <?= $content ?>
     </main>
 </div>

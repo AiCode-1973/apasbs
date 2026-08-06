@@ -52,14 +52,14 @@ class UsuariosController
 
     public function lista(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('usuarios', 'pode_ver');
         $usuarios = $this->model->listar();
         View::render('usuarios', 'lista', ['usuarios' => $usuarios]);
     }
 
     public function novo(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('usuarios', 'pode_criar');
         $setores = $this->model->listarSetores();
         View::render('usuarios', 'form', [
             'usuario' => null,
@@ -70,7 +70,7 @@ class UsuariosController
 
     public function salvar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('usuarios', 'pode_criar');
         $this->assertPost();
 
         $dados = $this->sanitizar($_POST);
@@ -91,7 +91,7 @@ class UsuariosController
 
     public function editar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('usuarios', 'pode_editar');
         $id      = (int) ($_GET['id'] ?? 0);
         $usuario = $this->model->buscarPorId($id);
 
@@ -108,7 +108,7 @@ class UsuariosController
 
     public function atualizar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('usuarios', 'pode_editar');
         $this->assertPost();
 
         $id    = (int) ($_POST['id'] ?? 0);
@@ -131,7 +131,7 @@ class UsuariosController
 
     public function excluir(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('usuarios', 'pode_excluir');
         $id = (int) ($_GET['id'] ?? 0);
 
         if ($id === Auth::id()) {

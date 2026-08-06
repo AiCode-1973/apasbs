@@ -71,7 +71,8 @@ try {
 
     $pdo->exec("INSERT IGNORE INTO modulos (nome, slug, icone) VALUES
         ('Usuários',   'usuarios',   'bi-people'),
-        ('Permissões', 'permissoes', 'bi-shield-lock')");
+        ('Permissões', 'permissoes', 'bi-shield-lock'),
+        ('Setores',    'setores',    'bi-building')");
 
     $ok[] = 'Tabelas e dados iniciais criados.';
 } catch (PDOException $e) {
@@ -80,12 +81,17 @@ try {
 
 // 3. Usuário admin
 try {
+    // Adiciona is_admin se a coluna ainda não existe
+    try {
+        $pdo->exec("ALTER TABLE usuarios ADD COLUMN is_admin TINYINT(1) NOT NULL DEFAULT 0 AFTER ativo");
+    } catch (PDOException $e) { /* coluna já existe */ }
+
     $total = (int) $pdo->query("SELECT COUNT(*) FROM usuarios")->fetchColumn();
 
     if ($total === 0) {
         $hash = password_hash('Admin@123', PASSWORD_BCRYPT);
         $stmt = $pdo->prepare(
-            "INSERT INTO usuarios (nome, cpf, senha, setor_id) VALUES (?, ?, ?, 1)"
+            "INSERT INTO usuarios (nome, cpf, senha, setor_id, is_admin) VALUES (?, ?, ?, 1, 1)"
         );
         $stmt->execute(['Administrador', '00000000000', $hash]);
         $ok[] = 'Usuário administrador criado.';

@@ -14,7 +14,7 @@ class SetoresController
 
     public function lista(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('setores', 'pode_ver');
         View::render('setores', 'lista', [
             'setores' => $this->model->listar(),
         ]);
@@ -22,7 +22,7 @@ class SetoresController
 
     public function novo(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('setores', 'pode_criar');
         View::render('setores', 'form', [
             'setor' => null,
             'erros' => [],
@@ -31,7 +31,7 @@ class SetoresController
 
     public function salvar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('setores', 'pode_criar');
         $this->assertPost();
 
         $dados = $this->sanitizar($_POST, true);
@@ -48,7 +48,7 @@ class SetoresController
 
     public function editar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('setores', 'pode_editar');
         $id    = (int) ($_GET['id'] ?? 0);
         $setor = $this->model->buscarPorId($id);
 
@@ -61,7 +61,7 @@ class SetoresController
 
     public function atualizar(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('setores', 'pode_editar');
         $this->assertPost();
 
         $id    = (int) ($_POST['id'] ?? 0);
@@ -80,7 +80,7 @@ class SetoresController
 
     public function excluir(): void
     {
-        Auth::requireLogin();
+        Auth::requirePermissao('setores', 'pode_excluir');
         $id = (int) ($_GET['id'] ?? 0);
 
         if ($this->model->possuiUsuarios($id)) {
