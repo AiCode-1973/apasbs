@@ -188,6 +188,32 @@
 
         a { color: var(--m-600); }
         a:hover { color: var(--m-800); }
+
+        /* ── Sidebar toggle ─────────────────────── */
+        .sidebar, .layout-wrap { transition: width .22s ease, margin-left .22s ease; }
+
+        .sidebar.sb-collapsed { width: 60px; }
+        .layout-wrap.sb-collapsed { margin-left: 60px; }
+
+        .sidebar.sb-collapsed .sb-brand { padding: 1.25rem .75rem; justify-content: center; gap: 0; }
+        .sidebar.sb-collapsed .sb-brand-text { display: none; }
+        .sidebar.sb-collapsed .sb-section { display: none; }
+        .sidebar.sb-collapsed .sb-link { justify-content: center; padding: .6rem; gap: 0; border-radius: 8px; }
+        .sidebar.sb-collapsed .sb-link i { width: auto; font-size: 1.05rem; }
+        .sidebar.sb-collapsed .sb-link-label { display: none; }
+        .sidebar.sb-collapsed .sb-user { justify-content: center; padding: .5rem; }
+        .sidebar.sb-collapsed .sb-username { display: none; }
+        .sidebar.sb-collapsed .sb-footer .sb-link { justify-content: center; padding: .6rem; }
+
+        .sb-toggle {
+            display: flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; border-radius: 8px;
+            background: none; border: 1px solid #e4e8f0;
+            color: var(--m-700); cursor: pointer;
+            transition: background .13s, color .13s;
+            flex-shrink: 0;
+        }
+        .sb-toggle:hover { background: var(--m-50); color: var(--m-900); }
     </style>
 </head>
 <body>
@@ -202,8 +228,8 @@ $hoje = date('d/m/Y');
     <a class="sb-brand" href="<?= BASE_URL ?>/?mod=usuarios&action=lista">
         <div class="sb-brand-icon"><i class="bi bi-heart-pulse"></i></div>
         <div>
-            <div class="sb-brand-name">APASBS</div>
-            <div class="sb-brand-sub">Gestão em Saúde</div>
+            <div class="sb-brand-name sb-brand-text">APASBS</div>
+            <div class="sb-brand-sub sb-brand-text">Gestão em Saúde</div>
         </div>
     </a>
 
@@ -211,13 +237,15 @@ $hoje = date('d/m/Y');
         <div class="sb-section">Cadastros</div>
         <a class="sb-link <?= $currentMod === 'usuarios' ? 'active' : '' ?>"
            href="<?= BASE_URL ?>/?mod=usuarios&action=lista">
-            <i class="bi bi-people"></i> Usuários
+            <i class="bi bi-people"></i>
+            <span class="sb-link-label"> Usuários</span>
         </a>
 
         <div class="sb-section mt-1">Configurações</div>
         <a class="sb-link <?= $currentMod === 'permissoes' ? 'active' : '' ?>"
            href="<?= BASE_URL ?>/?mod=permissoes&action=gerenciar">
-            <i class="bi bi-shield-lock"></i> Permissões
+            <i class="bi bi-shield-lock"></i>
+            <span class="sb-link-label"> Permissões</span>
         </a>
     </div>
 
@@ -227,7 +255,8 @@ $hoje = date('d/m/Y');
             <span class="sb-username"><?= htmlspecialchars(Auth::nome() ?? '') ?></span>
         </div>
         <a class="sb-link danger" href="<?= BASE_URL ?>/?mod=usuarios&action=logout">
-            <i class="bi bi-box-arrow-right"></i> Sair do sistema
+            <i class="bi bi-box-arrow-right"></i>
+            <span class="sb-link-label"> Sair do sistema</span>
         </a>
     </div>
 </nav>
@@ -235,6 +264,9 @@ $hoje = date('d/m/Y');
 <div class="layout-wrap">
     <header class="topbar">
         <div class="topbar-left">
+            <button class="sb-toggle me-2" id="sb-toggle" title="Expandir/recolher menu">
+                <i class="bi bi-layout-sidebar-reverse"></i>
+            </button>
             <span class="topbar-section"><?= htmlspecialchars($currentMod) ?></span>
             <span class="topbar-divider">›</span>
             <span class="topbar-title"><?= $pageTitle ?></span>
@@ -248,5 +280,36 @@ $hoje = date('d/m/Y');
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    (function () {
+        const sidebar = document.querySelector('.sidebar');
+        const wrap    = document.querySelector('.layout-wrap');
+        const btn     = document.getElementById('sb-toggle');
+        const KEY     = 'apasbs_sb_collapsed';
+
+        function apply(collapsed) {
+            sidebar.classList.toggle('sb-collapsed', collapsed);
+            wrap.classList.toggle('sb-collapsed', collapsed);
+            btn.querySelector('i').className = collapsed
+                ? 'bi bi-layout-sidebar'
+                : 'bi bi-layout-sidebar-reverse';
+        }
+
+        // Restaura estado salvo sem animação
+        sidebar.style.transition = 'none';
+        wrap.style.transition    = 'none';
+        apply(localStorage.getItem(KEY) === '1');
+        requestAnimationFrame(() => {
+            sidebar.style.transition = '';
+            wrap.style.transition    = '';
+        });
+
+        btn.addEventListener('click', function () {
+            const next = !sidebar.classList.contains('sb-collapsed');
+            localStorage.setItem(KEY, next ? '1' : '0');
+            apply(next);
+        });
+    })();
+</script>
 </body>
 </html>
