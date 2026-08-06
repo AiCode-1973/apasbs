@@ -128,14 +128,14 @@
 <div class="login-brand">
     <div class="brand-logo">
         <div class="brand-logo-icon"><i class="bi bi-heart-pulse"></i></div>
-        <span class="brand-logo-text">APASBS</span>
+        <span class="brand-logo-text">APAS Baixada Santista</span>
     </div>
     <div class="brand-tagline">
         <h2>Gestão integrada<br>para a área da saúde</h2>
-        <p>Controle de usuários, permissões e módulos<br>em um único lugar, com segurança e praticidade.</p>
+        <p><br></p>
     </div>
     <div class="brand-footer">
-        <span>&copy; <?= date('Y') ?> APASBS &mdash; Todos os direitos reservados</span>
+        <span>&copy; <?= date('Y') ?> APASBS &mdash; Todos os direitos reservados - Desenvolvido por: Demetrius Figueiredo</span>
     </div>
 </div>
 
