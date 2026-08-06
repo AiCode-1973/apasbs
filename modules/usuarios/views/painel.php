@@ -20,20 +20,23 @@ $urls = [
     <div class="d-flex flex-wrap gap-3">
         <?php foreach ($modulos as $slug => $m): ?>
             <a href="<?= $urls[$slug] ?>" class="text-decoration-none">
-                <div class="card" style="width:220px;transition:box-shadow .15s,transform .15s"
+                <div class="card" style="width:220px;height:160px;transition:box-shadow .15s,transform .15s"
                      onmouseover="this.style.boxShadow='0 6px 20px rgba(57,95,179,.15)';this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow='';this.style.transform=''">
-                    <div class="card-body p-4">
+                    <div class="card-body p-4 d-flex flex-column justify-content-between">
                         <div style="width:44px;height:44px;background:var(--m-100);border-radius:10px;
-                                    display:flex;align-items:center;justify-content:center;margin-bottom:1rem">
+                                    display:flex;align-items:center;justify-content:center">
                             <i class="bi <?= htmlspecialchars($m['icone']) ?>"
                                style="font-size:1.3rem;color:var(--m-600)"></i>
                         </div>
-                        <div style="font-size:.9rem;font-weight:700;color:var(--m-900);margin-bottom:.25rem">
-                            <?= htmlspecialchars($m['nome']) ?>
-                        </div>
-                        <div style="font-size:.75rem;color:#7a859a;line-height:1.4">
-                            <?= htmlspecialchars($m['desc']) ?>
+                        <div>
+                            <div style="font-size:.9rem;font-weight:700;color:var(--m-900);margin-bottom:.2rem">
+                                <?= htmlspecialchars($m['nome']) ?>
+                            </div>
+                            <div style="font-size:.72rem;color:#7a859a;line-height:1.4;
+                                        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">
+                                <?= htmlspecialchars($m['desc']) ?>
+                            </div>
                         </div>
                     </div>
                 </div>
