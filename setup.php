@@ -71,9 +71,9 @@ try {
 
     $pdo->exec("INSERT IGNORE INTO modulos (nome, slug, icone) VALUES
         ('Usuários',   'usuarios',   'bi-people'),
-        ('Permissões', 'permissoes', 'bi-shield-lock'),
         ('Setores',    'setores',    'bi-building'),
-        ('TUSS',       'tuss',       'bi-clipboard2-pulse')");
+        ('TUSS',       'tuss',       'bi-clipboard2-pulse'),
+        ('Permissões', 'permissoes', 'bi-shield-lock')");
 
     $ok[] = 'Tabelas e dados iniciais criados.';
 } catch (PDOException $e) {
