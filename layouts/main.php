@@ -246,7 +246,6 @@ if (isset($_SESSION['flash_error'])) {
             <span class="sb-link-label"> Painel</span>
         </a>
 
-        <div class="sb-section mt-1">Cadastros</div>
         <?php
         foreach (Modules::grupos() as $grupo => $label):
             $visiveis = array_filter(Modules::byGroup($grupo), fn($m) => Auth::temPermissao($m['slug']));
