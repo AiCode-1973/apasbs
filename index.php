@@ -16,7 +16,7 @@ require_once BASE_PATH . '/core/Auth.php';
 require_once BASE_PATH . '/core/View.php';
 
 // Módulos disponíveis (whitelist de segurança)
-const MODULOS_VALIDOS = ['usuarios', 'permissoes'];
+const MODULOS_VALIDOS = ['usuarios', 'permissoes', 'setores'];
 
 $mod    = $_GET['mod']    ?? 'usuarios';
 $action = $_GET['action'] ?? 'login';

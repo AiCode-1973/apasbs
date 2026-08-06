@@ -218,7 +218,7 @@
 </head>
 <body>
 <?php
-$pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módulos'];
+$pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módulos', 'setores' => 'Setores'];
 $currentMod = $_GET['mod'] ?? 'usuarios';
 $pageTitle  = $pageTitles[$currentMod] ?? 'Sistema';
 $hoje = date('d/m/Y');
@@ -239,6 +239,11 @@ $hoje = date('d/m/Y');
            href="<?= BASE_URL ?>/?mod=usuarios&action=lista">
             <i class="bi bi-people"></i>
             <span class="sb-link-label"> Usuários</span>
+        </a>
+        <a class="sb-link <?= $currentMod === 'setores' ? 'active' : '' ?>"
+           href="<?= BASE_URL ?>/?mod=setores&action=lista">
+            <i class="bi bi-building"></i>
+            <span class="sb-link-label"> Setores</span>
         </a>
 
         <div class="sb-section mt-1">Configurações</div>
