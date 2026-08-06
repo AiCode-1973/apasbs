@@ -218,7 +218,7 @@
 </head>
 <body>
 <?php
-$pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módulos', 'setores' => 'Setores', 'painel' => 'Painel'];
+$pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módulos', 'setores' => 'Setores', 'painel' => 'Painel', 'tuss' => 'TUSS – Procedimentos'];
 $currentMod = $_GET['mod'] ?? 'usuarios';
 $pageTitle  = $pageTitles[$currentMod] ?? 'Sistema';
 $hoje = date('d/m/Y');
@@ -259,6 +259,13 @@ if (isset($_SESSION['flash_error'])) {
            href="<?= BASE_URL ?>/?mod=setores&action=lista">
             <i class="bi bi-building"></i>
             <span class="sb-link-label"> Setores</span>
+        </a>
+        <?php endif; ?>
+        <?php if (Auth::temPermissao('tuss')): ?>
+        <a class="sb-link <?= $currentMod === 'tuss' ? 'active' : '' ?>"
+           href="<?= BASE_URL ?>/?mod=tuss&action=lista">
+            <i class="bi bi-clipboard2-pulse"></i>
+            <span class="sb-link-label"> TUSS</span>
         </a>
         <?php endif; ?>
 
