@@ -34,7 +34,7 @@ class SetoresController
         Auth::requireLogin();
         $this->assertPost();
 
-        $dados = $this->sanitizar($_POST);
+        $dados = $this->sanitizar($_POST, true);
         $erros = $this->validar($dados);
 
         if ($erros) {
@@ -93,11 +93,12 @@ class SetoresController
 
     // -------------------------------------------------------------------------
 
-    private function sanitizar(array $post): array
+    private function sanitizar(array $post, bool $criando = false): array
     {
         return [
             'nome'  => trim($post['nome'] ?? ''),
-            'ativo' => isset($post['ativo']) ? 1 : 0,
+            // Na criação não há checkbox, setor nasce sempre ativo
+            'ativo' => $criando ? 1 : (isset($post['ativo']) ? 1 : 0),
         ];
     }
 
