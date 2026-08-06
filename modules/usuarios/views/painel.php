@@ -2,6 +2,7 @@
 $urls = [
     'usuarios'   => BASE_URL . '/?mod=usuarios&action=lista',
     'setores'    => BASE_URL . '/?mod=setores&action=lista',
+    'tuss'       => BASE_URL . '/?mod=tuss&action=lista',
     'permissoes' => BASE_URL . '/?mod=permissoes&action=gerenciar',
 ];
 ?>
