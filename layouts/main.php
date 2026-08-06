@@ -240,7 +240,13 @@ if (isset($_SESSION['flash_error'])) {
     </a>
 
     <div class="sb-body">
-        <div class="sb-section">Cadastros</div>
+        <a class="sb-link <?= ($currentMod === 'usuarios' && ($_GET['action'] ?? '') === 'painel') ? 'active' : '' ?>"
+           href="<?= BASE_URL ?>/?mod=usuarios&action=painel">
+            <i class="bi bi-grid-1x2"></i>
+            <span class="sb-link-label"> Painel</span>
+        </a>
+
+        <div class="sb-section mt-1">Cadastros</div>
         <?php if (Auth::temPermissao('usuarios')): ?>
         <a class="sb-link <?= $currentMod === 'usuarios' ? 'active' : '' ?>"
            href="<?= BASE_URL ?>/?mod=usuarios&action=lista">
