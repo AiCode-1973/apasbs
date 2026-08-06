@@ -35,7 +35,7 @@ class Auth
         self::requireLogin();
         if (!self::temPermissao($modulo, $tipo)) {
             $_SESSION['flash_error'] = 'Você não tem permissão para acessar este recurso.';
-            header('Location: ' . BASE_URL . '/');
+            header('Location: ' . BASE_URL . '/?mod=usuarios&action=painel');
             exit;
         }
     }

@@ -15,7 +15,7 @@ class UsuariosController
     public function login(): void
     {
         if (Auth::check()) {
-            header('Location: ' . BASE_URL . '/?mod=usuarios&action=lista');
+            header('Location: ' . BASE_URL . '/?mod=usuarios&action=painel');
             exit;
         }
 
@@ -32,7 +32,7 @@ class UsuariosController
 
                 if ($usuario && password_verify($senha, $usuario['senha'])) {
                     Auth::login($usuario);
-                    header('Location: ' . BASE_URL . '/?mod=usuarios&action=lista');
+                    header('Location: ' . BASE_URL . '/?mod=usuarios&action=painel');
                     exit;
                 }
 
@@ -41,6 +41,21 @@ class UsuariosController
         }
 
         View::render('usuarios', 'login', ['erro' => $erro], false);
+    }
+
+    public function painel(): void
+    {
+        Auth::requireLogin();
+
+        $todos = [
+            'usuarios'   => ['nome' => 'Usuários',   'icone' => 'bi-people',      'desc' => 'Gerencie os profissionais do sistema'],
+            'setores'    => ['nome' => 'Setores',    'icone' => 'bi-building',    'desc' => 'Cadastro de setores da organização'],
+            'permissoes' => ['nome' => 'Permissões', 'icone' => 'bi-shield-lock', 'desc' => 'Controle de acesso por módulo'],
+        ];
+
+        $acessiveis = array_filter($todos, fn($slug) => Auth::temPermissao($slug), ARRAY_FILTER_USE_KEY);
+
+        View::render('usuarios', 'painel', ['modulos' => $acessiveis]);
     }
 
     public function logout(): void

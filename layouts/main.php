@@ -218,7 +218,7 @@
 </head>
 <body>
 <?php
-$pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módulos', 'setores' => 'Setores'];
+$pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módulos', 'setores' => 'Setores', 'painel' => 'Painel'];
 $currentMod = $_GET['mod'] ?? 'usuarios';
 $pageTitle  = $pageTitles[$currentMod] ?? 'Sistema';
 $hoje = date('d/m/Y');
