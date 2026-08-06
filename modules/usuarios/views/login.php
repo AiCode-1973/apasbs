@@ -132,10 +132,10 @@
     </div>
     <div class="brand-tagline">
         <h2>Gestão integrada<br>para a área da saúde</h2>
-        <p>Associação Policial<br>de Assistência à Saúde</p>
+        <p>Associação Policial de Assistência à Saúde<br></p>
     </div>
     <div class="brand-footer">
-        <span>&copy; <?= date('Y') ?> APASBS &mdash; Todos os direitos reservados</span>
+        <span>&copy; <?= date('Y') ?> APASBS &mdash; Todos os direitos reservados</span><br>
         <span>Desenvolvido por: Demetrius Figueiredo</span>
 
     </div>
