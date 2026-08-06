@@ -10,7 +10,7 @@ class UsuarioModel
         $this->pdo = getPDO();
     }
 
-    public function buscarPorCpf(string $cpf): array|false
+    public function buscarPorCpf(string $cpf)
     {
         $stmt = $this->pdo->prepare("
             SELECT u.*, s.nome AS setor_nome
@@ -33,7 +33,7 @@ class UsuarioModel
         ")->fetchAll();
     }
 
-    public function buscarPorId(int $id): array|false
+    public function buscarPorId(int $id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM usuarios WHERE id = ?");
         $stmt->execute([$id]);

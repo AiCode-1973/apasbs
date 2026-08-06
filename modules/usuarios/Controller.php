@@ -212,7 +212,7 @@ class UsuariosController
         }
     }
 
-    private function redirect(string $action, string $msg = ''): never
+    private function redirect(string $action, string $msg = ''): void
     {
         $url = BASE_URL . '/?mod=usuarios&action=' . $action;
         if ($msg) {

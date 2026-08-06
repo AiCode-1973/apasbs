@@ -1,0 +1,16 @@
+Options -Indexes
+
+RewriteEngine On
+
+# Redireciona tudo para index.php, exceto arquivos e pastas existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Bloqueia acesso direto a arquivos sensíveis
+<FilesMatch "\.(sql|log|env|md)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Delete o setup.php após o primeiro acesso

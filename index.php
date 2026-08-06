@@ -1,10 +1,15 @@
 <?php
 declare(strict_types=1);
 
+// Remova estas 2 linhas após resolver o erro
+ini_set('display_errors', '1');
+error_reporting(E_ALL);
+
 session_start();
 
 define('BASE_PATH', __DIR__);
-define('BASE_URL', '/apasbs');
+// Detecta automaticamente se está na raiz ou em subpasta
+define('BASE_URL', rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/'));
 
 require_once BASE_PATH . '/config/database.php';
 require_once BASE_PATH . '/core/Auth.php';
