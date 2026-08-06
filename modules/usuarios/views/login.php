@@ -22,7 +22,7 @@
         }
         /* Painel esquerdo – identidade da marca */
         .login-brand {
-            width: 420px; flex-shrink: 0;
+            width: 50%; flex-shrink: 0;
             background: linear-gradient(160deg, var(--m-800) 0%, var(--m-950) 100%);
             display: flex; flex-direction: column;
             align-items: flex-start; justify-content: space-between;
@@ -66,7 +66,7 @@
         .brand-footer span { font-size: .7rem; color: var(--m-400); }
         /* Painel direito – formulário */
         .login-form-wrap {
-            flex: 1; background: #f4f6fb;
+            width: 50%; background: #f4f6fb;
             display: flex; align-items: center; justify-content: center;
             padding: 2rem;
         }
