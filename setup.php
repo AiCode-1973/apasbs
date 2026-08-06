@@ -84,7 +84,14 @@ try {
     // Adiciona is_admin se a coluna ainda não existe
     try {
         $pdo->exec("ALTER TABLE usuarios ADD COLUMN is_admin TINYINT(1) NOT NULL DEFAULT 0 AFTER ativo");
+        $ok[] = 'Coluna is_admin adicionada.';
     } catch (PDOException $e) { /* coluna já existe */ }
+
+    // Garante que o admin (cpf 00000000000) sempre tenha is_admin = 1
+    $pdo->exec("UPDATE usuarios SET is_admin = 1 WHERE cpf = '00000000000'");
+
+    // Insere módulo Setores se ainda não existir
+    $pdo->exec("INSERT IGNORE INTO modulos (nome, slug, icone) VALUES ('Setores', 'setores', 'bi-building')");
 
     $total = (int) $pdo->query("SELECT COUNT(*) FROM usuarios")->fetchColumn();
 
@@ -96,7 +103,7 @@ try {
         $stmt->execute(['Administrador', '00000000000', $hash]);
         $ok[] = 'Usuário administrador criado.';
     } else {
-        $ok[] = 'Usuário administrador já existe (ignorado).';
+        $ok[] = 'Administrador atualizado com acesso total (is_admin = 1).';
     }
 } catch (PDOException $e) {
     $erros[] = $e->getMessage();
