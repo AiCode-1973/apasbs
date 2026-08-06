@@ -174,26 +174,6 @@
     </div>
 </div>
 
-        <?php if ($erro): ?>
-            <div class="alert alert-danger py-2 small"><?= htmlspecialchars($erro) ?></div>
-        <?php endif; ?>
-
-        <form method="POST" novalidate>
-            <div class="mb-3">
-                <label class="form-label">CPF</label>
-                <input type="text" name="cpf" id="cpf" class="form-control"
-                       placeholder="000.000.000-00" maxlength="14" autocomplete="username" required>
-            </div>
-            <div class="mb-4">
-                <label class="form-label">Senha</label>
-                <input type="password" name="senha" class="form-control"
-                       autocomplete="current-password" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Entrar</button>
-        </form>
-    </div>
-</div>
-
 <script>
     document.getElementById('cpf').addEventListener('input', function () {
         let v = this.value.replace(/\D/g, '').substring(0, 11);
