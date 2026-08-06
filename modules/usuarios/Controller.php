@@ -47,14 +47,11 @@ class UsuariosController
     {
         Auth::requireLogin();
 
-        $todos = [
-            'usuarios'   => ['nome' => 'Usuários',   'icone' => 'bi-people',          'desc' => 'Gerencie os profissionais do sistema'],
-            'setores'    => ['nome' => 'Setores',    'icone' => 'bi-building',         'desc' => 'Cadastro de setores da organização'],
-            'tuss'       => ['nome' => 'TUSS',       'icone' => 'bi-clipboard2-pulse', 'desc' => 'Tabela 22 – Procedimentos e eventos em saúde'],
-            'permissoes' => ['nome' => 'Permissões', 'icone' => 'bi-shield-lock',      'desc' => 'Controle de acesso por módulo'],
-        ];
-
-        $acessiveis = array_filter($todos, fn($slug) => Auth::temPermissao($slug), ARRAY_FILTER_USE_KEY);
+        $acessiveis = array_filter(
+            Modules::bySlugs(),
+            fn($slug) => Auth::temPermissao($slug),
+            ARRAY_FILTER_USE_KEY
+        );
 
         View::render('usuarios', 'painel', ['modulos' => $acessiveis]);
     }

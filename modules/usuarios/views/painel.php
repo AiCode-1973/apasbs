@@ -1,12 +1,3 @@
-<?php
-$urls = [
-    'usuarios'   => BASE_URL . '/?mod=usuarios&action=lista',
-    'setores'    => BASE_URL . '/?mod=setores&action=lista',
-    'tuss'       => BASE_URL . '/?mod=tuss&action=lista',
-    'permissoes' => BASE_URL . '/?mod=permissoes&action=gerenciar',
-];
-?>
-
 <div class="page-header">
     <h4>Painel</h4>
     <p>Bem-vindo, <?= htmlspecialchars(Auth::nome() ?? '') ?>. Selecione um módulo abaixo.</p>
@@ -20,7 +11,7 @@ $urls = [
 <?php else: ?>
     <div class="d-flex flex-wrap gap-3">
         <?php foreach ($modulos as $slug => $m): ?>
-            <a href="<?= $urls[$slug] ?>" class="text-decoration-none">
+            <a href="<?= BASE_URL ?>/?mod=<?= $m['slug'] ?>&action=<?= $m['action'] ?>" class="text-decoration-none">
                 <div class="card" style="width:220px;height:160px;transition:box-shadow .15s,transform .15s"
                      onmouseover="this.style.boxShadow='0 6px 20px rgba(57,95,179,.15)';this.style.transform='translateY(-2px)'"
                      onmouseout="this.style.boxShadow='';this.style.transform=''">

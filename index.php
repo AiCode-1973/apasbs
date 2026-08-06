@@ -18,13 +18,11 @@ require_once BASE_PATH . '/core/Modules.php';
 
 Modules::sync();
 
-// Módulos disponíveis (whitelist de segurança)
-const MODULOS_VALIDOS = ['usuarios', 'permissoes', 'setores', 'tuss'];
-
 $mod    = $_GET['mod']    ?? 'usuarios';
 $action = $_GET['action'] ?? 'login';
 
-if (!in_array($mod, MODULOS_VALIDOS, true)) {
+// Whitelist derivada do registry central
+if (!in_array($mod, Modules::slugs(), true)) {
     http_response_code(404);
     exit('Módulo não encontrado.');
 }

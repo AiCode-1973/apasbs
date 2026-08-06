@@ -218,7 +218,7 @@
 </head>
 <body>
 <?php
-$pageTitles = ['usuarios' => 'Usuários', 'permissoes' => 'Permissões de Módulos', 'setores' => 'Setores', 'painel' => 'Painel', 'tuss' => 'TUSS – Procedimentos'];
+$pageTitles = Modules::pageTitles();
 $currentMod = $_GET['mod'] ?? 'usuarios';
 $pageTitle  = $pageTitles[$currentMod] ?? 'Sistema';
 $hoje = date('d/m/Y');
@@ -247,36 +247,20 @@ if (isset($_SESSION['flash_error'])) {
         </a>
 
         <div class="sb-section mt-1">Cadastros</div>
-        <?php if (Auth::temPermissao('usuarios')): ?>
-        <a class="sb-link <?= $currentMod === 'usuarios' ? 'active' : '' ?>"
-           href="<?= BASE_URL ?>/?mod=usuarios&action=lista">
-            <i class="bi bi-people"></i>
-            <span class="sb-link-label"> Usuários</span>
+        <?php
+        foreach (Modules::grupos() as $grupo => $label):
+            $visiveis = array_filter(Modules::byGroup($grupo), fn($m) => Auth::temPermissao($m['slug']));
+            if (empty($visiveis)) continue;
+        ?>
+        <div class="sb-section mt-1"><?= htmlspecialchars($label) ?></div>
+        <?php foreach ($visiveis as $m): ?>
+        <a class="sb-link <?= $currentMod === $m['slug'] ? 'active' : '' ?>"
+           href="<?= BASE_URL ?>/?mod=<?= $m['slug'] ?>&action=<?= $m['action'] ?>">
+            <i class="bi <?= htmlspecialchars($m['icone']) ?>"></i>
+            <span class="sb-link-label"> <?= htmlspecialchars($m['nome']) ?></span>
         </a>
-        <?php endif; ?>
-        <?php if (Auth::temPermissao('setores')): ?>
-        <a class="sb-link <?= $currentMod === 'setores' ? 'active' : '' ?>"
-           href="<?= BASE_URL ?>/?mod=setores&action=lista">
-            <i class="bi bi-building"></i>
-            <span class="sb-link-label"> Setores</span>
-        </a>
-        <?php endif; ?>
-        <?php if (Auth::temPermissao('tuss')): ?>
-        <a class="sb-link <?= $currentMod === 'tuss' ? 'active' : '' ?>"
-           href="<?= BASE_URL ?>/?mod=tuss&action=lista">
-            <i class="bi bi-clipboard2-pulse"></i>
-            <span class="sb-link-label"> TUSS</span>
-        </a>
-        <?php endif; ?>
-
-        <div class="sb-section mt-1">Configurações</div>
-        <?php if (Auth::temPermissao('permissoes')): ?>
-        <a class="sb-link <?= $currentMod === 'permissoes' ? 'active' : '' ?>"
-           href="<?= BASE_URL ?>/?mod=permissoes&action=gerenciar">
-            <i class="bi bi-shield-lock"></i>
-            <span class="sb-link-label"> Permissões</span>
-        </a>
-        <?php endif; ?>
+        <?php endforeach; ?>
+        <?php endforeach; ?>
     </div>
 
     <div class="sb-footer">
