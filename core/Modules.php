@@ -38,6 +38,15 @@ class Modules
             'page_title' => 'TUSS – Procedimentos',
         ],
         [
+            'slug'       => 'cirurgias',
+            'nome'       => 'Cirurgias',
+            'icone'      => 'bi-scissors',
+            'action'     => 'lista',
+            'desc'       => 'Registro de procedimentos cirúrgicos',
+            'grupo'      => 'cadastros',
+            'page_title' => 'Cirurgias',
+        ],
+        [
             'slug'       => 'especialidades',
             'nome'       => 'Especialidades',
             'icone'      => 'bi-journal-medical',
