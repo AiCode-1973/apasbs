@@ -67,7 +67,7 @@
         /* Painel direito – formulário */
         .login-form-wrap {
             width: 50%; background: #f4f6fb;
-            display: flex; align-items: center; justify-content: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
             padding: 2rem;
         }
         .login-card {
@@ -142,10 +142,10 @@
 </div>
 
 <div class="login-form-wrap">
+    <div style="width:100%; max-width:380px; text-align:right; margin-bottom:1.25rem;">
+        <img src="<?= BASE_URL ?>image/logo_apas.png" alt="Logo APASBS" style="max-height:72px; max-width:100%;">
+    </div>
     <div class="login-card">
-        <div style="text-align:right; margin-bottom:1.25rem;">
-            <img src="<?= BASE_URL ?>image/logo_apas.png" alt="Logo APASBS" style="max-height:72px; max-width:100%;">
-        </div>
         <h3>Bem-vindo</h3>
         <p class="subtitle">Informe suas credenciais para continuar</p>
 
