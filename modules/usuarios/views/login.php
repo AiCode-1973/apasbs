@@ -143,6 +143,9 @@
 
 <div class="login-form-wrap">
     <div class="login-card">
+        <div style="text-align:right; margin-bottom:1.25rem;">
+            <img src="<?= BASE_URL ?>image/logo_apas.png" alt="Logo APASBS" style="max-height:72px; max-width:100%;">
+        </div>
         <h3>Bem-vindo</h3>
         <p class="subtitle">Informe suas credenciais para continuar</p>
 
