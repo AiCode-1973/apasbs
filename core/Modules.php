@@ -38,6 +38,15 @@ class Modules
             'page_title' => 'TUSS – Procedimentos',
         ],
         [
+            'slug'       => 'especialidades',
+            'nome'       => 'Especialidades',
+            'icone'      => 'bi-journal-medical',
+            'action'     => 'lista',
+            'desc'       => 'Especialidades médicas reconhecidas pelo CFM',
+            'grupo'      => 'cadastros',
+            'page_title' => 'Especialidades Médicas',
+        ],
+        [
             'slug'       => 'permissoes',
             'nome'       => 'Permissões',
             'icone'      => 'bi-shield-lock',
