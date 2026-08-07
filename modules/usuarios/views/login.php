@@ -142,7 +142,7 @@
 </div>
 
 <div class="login-form-wrap">
-    <div style="width:100%; max-width:380px; text-align:right; margin-bottom:1.25rem;">
+    <div style="width:100%; max-width:380px; text-align:center; margin-bottom:1.25rem;">
         <img src="<?= BASE_URL ?>image/logo_apas.png" alt="Logo APASBS" style="max-height:72px; max-width:100%;">
     </div>
     <div class="login-card">
